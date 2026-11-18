@@ -1,36 +1,48 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# usajobscircle
 
-## Getting Started
+A multi-page job portal recreating https://usajobscircle.com/ — built with Next.js 16 (App Router, JavaScript), React 19 and lucide-react.
 
-First, run the development server:
+## Getting started
 
 ```bash
+npm install
+cp .env.example .env.local   # optional
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+**Demo accounts** (mock auth only): `candidate@demo.test` / `employer@demo.test`, password `Demo@1234`.
+New registrations are activated with code `123456` on `/account-activation`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Scripts
 
-## Learn More
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run lint` | ESLint |
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+app/                 routes (App Router)
+  (public)/          listing, detail, packages and content pages
+  (auth)/            sign-in, sign-up, forgot-password, account-activation
+  (dashboard)/dashboard/{candidate,employer}/   role-based dashboards
+components/          layout, common, home, jobs, employers, candidates, pricing, blog, dashboard, auth, sections
+data/                mock data (jobs, employers, candidates, packages, faqs, testimonials, blog posts, demo users)
+services/            data access layer (mock now, REST/MySQL later via NEXT_PUBLIC_API_URL)
+hooks/               useAuth, useForm, useUrlFilters, useJobs, useUserData, useDebounce, useNow
+lib/                 constants, utils, validations, formatters, metadata, localStore
+styles/              global CSS partials (base, components, pages) imported by app/globals.css
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Dashboards live under `/dashboard/candidate` and `/dashboard/employer` so they don't collide with the public `/candidate/[slug]` and `/employer/[slug]` profile routes.
 
-## Deploy on Vercel
+## Connecting a backend
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Set `NEXT_PUBLIC_API_URL` and each service function will call the API instead of the mock data (see `services/apiClient.js`). Expected endpoints mirror the service names, e.g. `GET /jobs`, `GET /jobs/:slug`, `POST /auth/sign-in`.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+See `PROJECT_PROGRESS.md` for the page/component checklist.

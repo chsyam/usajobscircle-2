@@ -1,0 +1,81 @@
+/* ===== Listing pages ===== */
+.listing-search {
+  margin-bottom: 40px;
+}
+
+.listing-page {
+  background: #fff;
+}
+
+/* ===== Pricing / packages sections ===== */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px;
+}
+
+.pricing-grid--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+@media (max-width: 1100px) {
+  .pricing-grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 860px) {
+  .pricing-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 460px;
+    margin: 0 auto;
+  }
+  .pricing-grid--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .pricing-grid--4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px 30px;
+}
+
+@media (max-width: 860px) {
+  .services-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 560px) {
+  .services-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.banner-strip {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.banner-strip h2 {
+  color: #fff;
+  font-size: 24px;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.banner-strip p {
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 auto 22px;
+  max-width: 700px;
+}
